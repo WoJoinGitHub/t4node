@@ -1,0 +1,74 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var program = require('commander')
+var colors = require('colors')
+var fs = require('fs')
+var path = require('path')
+var swig = require('swig')
+
+program.version('0.1.0').option('-c, --compile', '生成')
+// must be before .parse() since
+// node's emit() is immediate
+program.on('--help', function() {
+  console.log('')
+  // console.log('Examples:')
+  // console.log('  $ custom-help --help')
+  // console.log('  $ custom-help -h')
+})
+
+program.parse(process.argv)
+
+if (program.compile) {
+  // 获取当前文件夹
+  var url = path.resolve('.')
+  // console.log(url)
+  // 获取当前文件夹中的文件
+  // let fileList = fs.readdirSync(url)
+  // let templateList = []
+  // fileList.forEach((item) => {
+  //   let state = fs.statSync(item)
+  //   if (state.isFile()) {
+  //     templateList.push(item)
+  //   }
+  // })
+  // console.log(templateList)
+  // let template =
+  let template = swig.compileFile('./' + program.args[0])
+  // console.log(template)
+  let methodurl = program.args[1]
+  let method = require(url + '/' + methodurl)
+  if (Array.isArray(method)) {
+    method.forEach((item) => {
+      if (!item.name) {
+        console.log(colors.red('输出对象里必须要有name属性'))
+        return
+      }
+      var output = template({ obj: item })
+      fs.writeFile(item.name, output, function(err) {
+        if (err) {
+          return console.log(colors.red('生成失败 失败原因是:' + err))
+        }
+        console.log(colors.green('生成文件:' + item.name + '成功'))
+      })
+    })
+  } else {
+    if (!method.name) {
+      console.log(colors.red('输出对象里必须要有name属性'))
+    }
+    var output = template({ obj: method })
+    fs.writeFile(method.name, output, function(err) {
+      if (err) {
+        return console.log(colors.red('生成失败 失败原因是:' + err))
+      }
+      console.log(colors.green('生成文件:' + method.name + '成功'))
+    })
+  }
+  // var output = template({ method })
+  // console.log(output)
+}
+
+// console.log(colors.red('请输入正确的命令'))
