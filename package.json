@@ -1,6 +1,6 @@
 {
   "name": "t4node",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "npm i -g t4node 安装， t4 -c 模板文件 模板数据",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -8,8 +8,12 @@
   "bin": {
     "t4": "bin/t4"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WoJoinGitHub/t4node.git"
+  },
   "author": "shijunliu",
-  "license": "ISC",
+  "license": "Apache",
   "dependencies": {
     "colors": "^1.3.3",
     "commander": "^2.19.0",
