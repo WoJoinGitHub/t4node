@@ -23,6 +23,6 @@ function get() {
   return arry
 }
 module.exports = {
-  name: 'result.js',
-  arry: get(),
+  name: 'result.js', // 要生成的文件名称
+  arry: get(), //数据
 }
