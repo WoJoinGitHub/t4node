@@ -1,0 +1,16 @@
+{% for author in obj.arry %}
+// {{author.describe}}
+export function {{author.name}}(data) {
+  return new Promise((resolve, reject) => {
+      $http.{{author.method}}('{{author.path}}',{{author.data}}).then(response => {
+          if (response.Code === 1) {
+              resolve(response.Data)
+          } else {
+              reject(response)
+          }
+      }).catch(err => {         
+          reject(err)
+      })
+  })
+} 
+{% endfor %}
