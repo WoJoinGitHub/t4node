@@ -11,7 +11,7 @@ npm i -g t4node
  t4 -h
 # 建立一个模板 例如 template.html 文档格式不限
 # 新建一个模板帮助方法 help.js
-# 多文件
+----多文件 示例----
 #name 属性位必须属性，是要生成文件的文件名，可以在下一级的文件夹内,请自行创建此文件夹
 module.exports = [
   {
@@ -23,7 +23,7 @@ module.exports = [
     text: '文字3',
   },
 ]
-# 单文件
+---- 单文件 示例 ----
 module.exports={
   name:'result.html',
   text:'文字'
